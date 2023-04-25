@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.js": "/aMolinari/static/js/main.b07c6ab8.js",
+    "static/js/823.35969b95.js": "/aMolinari/static/js/823.35969b95.js",
+    "favicon.ico": "/aMolinari/favicon.ico",
+    "index.html": "/aMolinari/index.html",
+    "favicon-32.png": "/aMolinari/favicon-32.png",
+    "favicon-16.png": "/aMolinari/favicon-16.png",
+    "manifest.json": "/aMolinari/manifest.json",
+    "serve.json": "/aMolinari/serve.json",
+    "main.b07c6ab8.js.map": "/aMolinari/static/js/main.b07c6ab8.js.map",
+    "823.35969b95.js.map": "/aMolinari/static/js/823.35969b95.js.map"
+  },
+  "entrypoints": [
+    "static/js/823.35969b95.js",
+    "static/js/main.b07c6ab8.js"
+  ]
+}
