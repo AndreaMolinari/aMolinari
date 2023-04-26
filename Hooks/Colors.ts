@@ -16,6 +16,9 @@ export type CustomColor = {
   danger: ColorValue;
   warning: ColorValue;
 };
+
+export type AvailableColors = keyof CustomColor;
+
 const LightColor: CustomColor = {
   default: "#eee",
   primary: "#333",
