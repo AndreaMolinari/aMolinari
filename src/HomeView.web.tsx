@@ -1,9 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import Text from "../Elements/Text";
-import { useIsDark } from "../Hooks/Colors";
 import View from "../Elements/View";
-import { Platform, SafeAreaView } from "react-native";
+import { useIsDark } from "../Hooks/Colors";
 import HomeInfo from "./HomeInfo";
 
 const HomeView: React.FC = () => {
@@ -14,19 +13,17 @@ const HomeView: React.FC = () => {
       <View
         style={{
           flex: 1,
-          flexDirection: "column",
+          flexDirection: "row",
         }}
       >
-        <SafeAreaView style={{ flex: 1 }}>
+        <View>
+          <HomeInfo />
+        </View>
+        <View style={{ flexDirection: "column", flex: 1 }}>
           <View centerContent>
-            <HomeInfo />
+            <Text size="xxl">🚧 Work in progress 🚧</Text>
           </View>
-          <View style={{ flexDirection: "column", flex: 1 }}>
-            <View centerContent>
-              <Text size="xxl">🚧 Work in progress 🚧</Text>
-            </View>
-          </View>
-        </SafeAreaView>
+        </View>
       </View>
     </>
   );
