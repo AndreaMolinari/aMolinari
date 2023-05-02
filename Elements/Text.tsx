@@ -1,36 +1,60 @@
 import React from "react";
-import {
-  StyleProp,
-  StyleSheet,
-  Text,
-  TextProps,
-  TextStyle,
-} from "react-native";
+import * as RN from "react-native";
 import { useColor } from "../Hooks/Colors";
+import { useMediaQuery } from "react-responsive";
+import { useFonts } from "expo-font";
 
-type CustomTextType = React.PropsWithChildren<TextProps> & {
-  size?: "xxl" | undefined;
+type CustomTextType = React.PropsWithChildren<RN.TextProps> & {
+  size?: "xxl" | "xl" | undefined;
 };
 
-export default (props: CustomTextType) => {
+export const Text: React.FC<CustomTextType> = (props) => {
   const color = useColor();
 
+  const [fontsLoaded] = useFonts({
+    Nunito: require("../assets/fonts/Nunito/Nunito-VariableFont_wght.ttf"),
+  });
+
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
+  const isPortrait = useMediaQuery({ orientation: "portrait" });
+
   const style = React.useMemo(() => {
-    let tmp: StyleProp<TextStyle> = {
+    let tmp: RN.StyleProp<RN.TextStyle> = {
       color: color.primary,
+      marginVertical: 10,
+      fontFamily: "Nunito",
+      fontWeight: "500",
     };
 
     switch (props.size) {
       case "xxl":
-        tmp = StyleSheet.compose(tmp, { fontSize: 50 });
+        tmp = RN.StyleSheet.compose(tmp, {
+          fontSize: 32,
+          ...RN.Platform.select({
+            web: {
+              fontSize: isTabletOrMobile && isPortrait ? 32 : 50,
+            },
+          }),
+        });
+        break;
+      case "xl":
+        tmp = RN.StyleSheet.compose(tmp, {
+          fontSize: 28,
+        });
         break;
       default:
-        tmp = StyleSheet.compose(tmp, { fontSize: 14 });
+        tmp = RN.StyleSheet.compose(tmp, { fontSize: 14 });
         break;
     }
 
-    return tmp;
-  }, [props]);
+    if (props.style) {
+      tmp = RN.StyleSheet.compose(tmp, props.style);
+    }
 
-  return <Text style={style}>{props.children}</Text>;
+    return tmp;
+  }, [props, isPortrait, isTabletOrMobile]);
+
+  return <RN.Text style={style}>{props.children}</RN.Text>;
 };
+
+export default Text;

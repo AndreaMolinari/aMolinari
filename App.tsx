@@ -1,3 +1,6 @@
-import HomeView from "./src/HomeView";
+import React from "react";
+import MainNavigator from "./src/MainNavigator";
 
-export default () => <HomeView />;
+export const App: React.FC = () => <MainNavigator />;
+
+export default App;
