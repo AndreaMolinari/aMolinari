@@ -4,8 +4,12 @@ Mi sono accorto di non avere repo publiche decenti,
 quindi ho deciso di crearmi un sito web a babbo morto,
 non so quanti anni ci vorranno 🙃
 
-# ToDo List
+[Visita il sito](https://amolinari.netlify.app/)
+
+## ToDo List
 - [ ] UI/UX Design
-- [ ] Develop App
+- [ ] Splash Screen
+- [ ] Fonts
 - [x] CI/CD GitHub Action
-- [x] Publish on GitHub Pages
+- [x] Deploy on GitHub Pages
+- [x] Deploy on Netlify

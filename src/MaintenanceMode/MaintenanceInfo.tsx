@@ -1,9 +1,8 @@
 import React from "react";
-import View from "../Elements/View";
-import Text from "../Elements/Text";
+import { Text, View } from "../../Elements";
 import { Image, Platform } from "react-native";
 
-const HomeInfo: React.FC = () => {
+const MaintenanceInfo: React.FC = () => {
   return (
     <View
       color="disabled"
@@ -50,4 +49,4 @@ const HomeInfo: React.FC = () => {
   );
 };
 
-export default HomeInfo;
+export default MaintenanceInfo;

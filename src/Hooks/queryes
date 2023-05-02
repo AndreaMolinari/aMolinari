@@ -1,0 +1,20 @@
+query {
+  __schema {
+    types {
+      name
+    }
+  }
+}
+
+query {
+  __type(name: "Repository") {
+    name
+    fields {
+      name
+      type {
+        name
+        kind
+      }
+    }
+  }
+}
