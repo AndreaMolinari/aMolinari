@@ -5,8 +5,11 @@ import { useMediaQuery } from "react-responsive";
 import { useFonts } from "expo-font";
 
 type CustomTextType = React.PropsWithChildren<RN.TextProps> & {
-  size?: "xxl" | "xl" | undefined;
+  size?: "xxl" | "xl" | "l" | "m" | undefined;
+  weight?: "bold" | "regular" | undefined;
 };
+
+const fontSize = (size: number) => size * RN.PixelRatio.getFontScale();
 
 export const Text: React.FC<CustomTextType> = (props) => {
   const color = useColor();
@@ -21,29 +24,53 @@ export const Text: React.FC<CustomTextType> = (props) => {
   const style = React.useMemo(() => {
     let tmp: RN.StyleProp<RN.TextStyle> = {
       color: color.primary,
-      marginVertical: 10,
       fontFamily: "Nunito",
       fontWeight: "500",
     };
 
+    switch (props.weight) {
+      case "bold":
+        tmp = RN.StyleSheet.compose(tmp, {
+          fontWeight: "700",
+        });
+        break;
+      default:
+        tmp = RN.StyleSheet.compose(tmp, {
+          fontWeight: "500",
+        });
+        break;
+    }
+
     switch (props.size) {
       case "xxl":
         tmp = RN.StyleSheet.compose(tmp, {
-          fontSize: 32,
+          fontSize: fontSize(32),
           ...RN.Platform.select({
             web: {
-              fontSize: isTabletOrMobile && isPortrait ? 32 : 50,
+              fontSize: fontSize(isTabletOrMobile && isPortrait ? 32 : 80),
             },
           }),
         });
         break;
       case "xl":
         tmp = RN.StyleSheet.compose(tmp, {
-          fontSize: 28,
+          fontSize: fontSize(28),
+        });
+        break;
+      case "l":
+        tmp = RN.StyleSheet.compose(tmp, {
+          fontSize: fontSize(25),
+        });
+        break;
+      case "m":
+        tmp = RN.StyleSheet.compose(tmp, {
+          fontSize: fontSize(20),
         });
         break;
       default:
-        tmp = RN.StyleSheet.compose(tmp, { fontSize: 14 });
+        tmp = RN.StyleSheet.compose(tmp, {
+          fontSize: fontSize(14),
+        });
         break;
     }
 
@@ -52,7 +79,7 @@ export const Text: React.FC<CustomTextType> = (props) => {
     }
 
     return tmp;
-  }, [props, isPortrait, isTabletOrMobile]);
+  }, [props, isPortrait, isTabletOrMobile, color, fontsLoaded]);
 
   return <RN.Text style={style}>{props.children}</RN.Text>;
 };

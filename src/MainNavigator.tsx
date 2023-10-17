@@ -1,9 +1,10 @@
-import React from "react";
-import { RootStackParamList } from "./RootStackParamList";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-import MaintenanceView from "./MaintenanceMode/MaintenanceView";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
 import HomeView from "./Home/HomeView";
+import { RootStackParamList } from "./RootStackParamList";
+import ProjectsView from "./Projects/ProjectsView";
+import HeaderView from "./HeaderView";
 
 declare global {
   namespace ReactNavigation {
@@ -13,20 +14,21 @@ declare global {
 
 const MainNavigator: React.FC = () => {
   const Stack = createNativeStackNavigator();
-  const initialRouteName = __DEV__ ? "Home" : "Maintenance";
+  const initialRouteName = "Home";
 
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={initialRouteName}>
         <Stack.Group
           screenOptions={{
-            headerShown: false,
+            headerShown: __DEV__,
+            header(props) {
+              return <HeaderView {...props} />;
+            },
           }}
         >
-          <Stack.Screen name="Maintenance" component={MaintenanceView} />
-        </Stack.Group>
-        <Stack.Group>
           <Stack.Screen name="Home" component={HomeView} />
+          <Stack.Screen name="Projects" component={ProjectsView} />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>

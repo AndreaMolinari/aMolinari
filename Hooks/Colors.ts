@@ -21,7 +21,7 @@ export type AvailableColors = keyof CustomColor;
 
 const LightColor: CustomColor = {
   default: "#eee",
-  primary: "#333",
+  primary: "#222",
   accent: "#ffcc00",
   disabled: "#888",
   success: "rgb(32, 124, 54)",
@@ -29,7 +29,7 @@ const LightColor: CustomColor = {
   warning: "rgba(253, 185, 35, 1)",
 };
 const DarkColor: CustomColor = {
-  default: "#333",
+  default: "#111",
   primary: "#ddd",
   accent: "#ffcc00",
   disabled: "#888",
