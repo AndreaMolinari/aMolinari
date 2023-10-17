@@ -1,10 +1,11 @@
-import { NavigationContainer } from "@react-navigation/native";
+import { LinkingOptions, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import HomeView from "./Home/HomeView";
-import { RootStackParamList } from "./RootStackParamList";
-import ProjectsView from "./Projects/ProjectsView";
 import HeaderView from "./HeaderView";
+import HomeView from "./Home/HomeView";
+import ProjectsView from "./Projects/ProjectsView";
+import { RootStackParamList } from "./RootStackParamList";
+import { Text } from "../Elements";
 
 declare global {
   namespace ReactNavigation {
@@ -12,14 +13,31 @@ declare global {
   }
 }
 
+const MainStack = createNativeStackNavigator<RootStackParamList>();
+
+const linking: LinkingOptions<RootStackParamList> = {
+  prefixes: ["aMolinari://", "https://andreamolinari.github.io/aMolinari/"],
+  config: {
+    initialRouteName: "Home",
+    screens: {
+      Home: {
+        path: "/Home",
+      },
+      Projects: {
+        path: "/Projects",
+      },
+      NoMatch: "*",
+    },
+  },
+};
+
 const MainNavigator: React.FC = () => {
-  const Stack = createNativeStackNavigator();
   const initialRouteName = "Home";
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName={initialRouteName}>
-        <Stack.Group
+    <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
+      <MainStack.Navigator initialRouteName={initialRouteName}>
+        <MainStack.Group
           screenOptions={{
             headerShown: __DEV__,
             header(props) {
@@ -27,10 +45,10 @@ const MainNavigator: React.FC = () => {
             },
           }}
         >
-          <Stack.Screen name="Home" component={HomeView} />
-          <Stack.Screen name="Projects" component={ProjectsView} />
-        </Stack.Group>
-      </Stack.Navigator>
+          <MainStack.Screen name="Home" component={HomeView} />
+          <MainStack.Screen name="Projects" component={ProjectsView} />
+        </MainStack.Group>
+      </MainStack.Navigator>
     </NavigationContainer>
   );
 };

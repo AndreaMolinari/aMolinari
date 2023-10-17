@@ -12,12 +12,18 @@ type Social = {
   linkedin: string;
 }; // ? GLYPHS
 
+type SocialKeyType = keyof Social;
+
 const HomeView: React.FC = () => {
   const social: Social = Constants.expoConfig?.extra?.social;
 
   const navToLink = (link: string) => Linking.openURL(link);
 
   const colors = useColor();
+
+  const validKeys = Object.keys(social).filter(
+    (key) => key in social
+  ) as SocialKeyType[];
 
   return (
     <View style={HomeStyle.wrapper}>
@@ -30,9 +36,8 @@ const HomeView: React.FC = () => {
       </View>
       <View style={HomeStyle.footer}>
         <View style={HomeStyle.social}>
-          {Object.entries(social).map((s, i) => {
-            const name = s[0] as keyof Social;
-            const link = s[1];
+          {validKeys.map((name, i) => {
+            const link = social[name];
             return (
               <Ionicons
                 key={`key-social-${i}`}

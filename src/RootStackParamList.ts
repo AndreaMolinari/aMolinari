@@ -1,5 +1,5 @@
-import { RouteProp } from "@react-navigation/native";
-
 export type RootStackParamList = {
-  Maintenance: undefined;
+  Home: undefined;
+  Projects: undefined;
+  NoMatch: undefined;
 };
