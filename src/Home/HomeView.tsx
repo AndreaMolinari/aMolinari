@@ -4,6 +4,7 @@ import React from "react";
 import { Linking, StyleSheet } from "react-native";
 import { Text, View } from "../../Elements";
 import { useColor } from "../../Hooks/Colors";
+import GlobalStyle from "../GlobalStyle";
 
 type Social = {
   facebook: string;
@@ -15,6 +16,7 @@ type Social = {
 type SocialKeyType = keyof Social;
 
 const HomeView: React.FC = () => {
+  const style = { ...GlobalStyle, ...HomeStyle };
   const social: Social = Constants.expoConfig?.extra?.social;
 
   const navToLink = (link: string) => Linking.openURL(link);
@@ -26,16 +28,16 @@ const HomeView: React.FC = () => {
   ) as SocialKeyType[];
 
   return (
-    <View style={HomeStyle.wrapper}>
-      <View style={HomeStyle.main}>
+    <View style={style.wrapper}>
+      <View style={style.main}>
         <Text size="xl">👋 Hey there, I'm</Text>
         <Text size="xxl" weight="bold">
           Andrea Molinari
         </Text>
         <Text size="xl">Full Stack Developer based in Cesena, Italy</Text>
       </View>
-      <View style={HomeStyle.footer}>
-        <View style={HomeStyle.social}>
+      <View style={style.footer}>
+        <View style={style.social}>
           {validKeys.map((name, i) => {
             const link = social[name];
             return (
@@ -49,7 +51,7 @@ const HomeView: React.FC = () => {
             );
           })}
         </View>
-        <View style={HomeStyle.copy}>
+        <View style={style.copy}>
           <Text>&copy; Andrea Molinari {new Date().getFullYear()}</Text>
         </View>
       </View>
@@ -58,11 +60,6 @@ const HomeView: React.FC = () => {
 };
 
 const HomeStyle = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    flexDirection: "column",
-    paddingHorizontal: "10%",
-  },
   main: {
     flex: 1,
     justifyContent: "center",

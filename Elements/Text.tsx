@@ -76,7 +76,7 @@ export const Text: React.FC<CustomTextType> = (props) => {
     return tmp;
   };
 
-  return <RN.Text style={style()}>{props.children}</RN.Text>;
+  return <RN.Text style={style()} {...props} />;
 };
 
 export default React.memo(Text);

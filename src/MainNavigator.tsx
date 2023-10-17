@@ -46,7 +46,9 @@ const MainNavigator: React.FC = () => {
           }}
         >
           <MainStack.Screen name="Home" component={HomeView} />
-          <MainStack.Screen name="Projects" component={ProjectsView} />
+          {__DEV__ && (
+            <MainStack.Screen name="Projects" component={ProjectsView} />
+          )}
         </MainStack.Group>
       </MainStack.Navigator>
     </NavigationContainer>
