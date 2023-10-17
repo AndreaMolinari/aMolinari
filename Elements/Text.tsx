@@ -1,8 +1,7 @@
 import React from "react";
 import * as RN from "react-native";
-import { useColor } from "../Hooks/Colors";
 import { useMediaQuery } from "react-responsive";
-import { useFonts } from "expo-font";
+import { useColor } from "../Hooks/Colors";
 
 type CustomTextType = React.PropsWithChildren<RN.TextProps> & {
   size?: "xxl" | "xl" | "l" | "m" | undefined;
@@ -14,14 +13,10 @@ const fontSize = (size: number) => size * RN.PixelRatio.getFontScale();
 export const Text: React.FC<CustomTextType> = (props) => {
   const color = useColor();
 
-  const [fontsLoaded] = useFonts({
-    Nunito: require("../assets/fonts/Nunito/Nunito-VariableFont_wght.ttf"),
-  });
-
   const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
   const isPortrait = useMediaQuery({ orientation: "portrait" });
 
-  const style = React.useMemo(() => {
+  const style = () => {
     let tmp: RN.StyleProp<RN.TextStyle> = {
       color: color.primary,
       fontFamily: "Nunito",
@@ -79,9 +74,9 @@ export const Text: React.FC<CustomTextType> = (props) => {
     }
 
     return tmp;
-  }, [props, isPortrait, isTabletOrMobile, color, fontsLoaded]);
+  };
 
-  return <RN.Text style={style}>{props.children}</RN.Text>;
+  return <RN.Text style={style()}>{props.children}</RN.Text>;
 };
 
-export default Text;
+export default React.memo(Text);

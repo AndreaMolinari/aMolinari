@@ -1,12 +1,19 @@
+import { Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import React from "react";
+import { Linking, StyleSheet } from "react-native";
 import { Text, View } from "../../Elements";
-import { Linking, StyleSheet, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { useColor } from "../../Hooks/Colors";
 
+type Social = {
+  facebook: string;
+  instagram: string;
+  github: string;
+  linkedin: string;
+}; // ? GLYPHS
+
 const HomeView: React.FC = () => {
-  const apiUrl = Constants.expoConfig?.extra?.apiUrl;
+  const social: Social = Constants.expoConfig?.extra?.social;
 
   const navToLink = (link: string) => Linking.openURL(link);
 
@@ -23,36 +30,19 @@ const HomeView: React.FC = () => {
       </View>
       <View style={HomeStyle.footer}>
         <View style={HomeStyle.social}>
-          <Ionicons
-            name="logo-facebook"
-            size={48}
-            color={colors.primary}
-            onPress={() =>
-              navToLink("https://www.facebook.com/AndreaJrMolinari/")
-            }
-          />
-          <Ionicons
-            name="logo-instagram"
-            size={48}
-            color={colors.primary}
-            onPress={() =>
-              navToLink("https://www.instagram.com/imatto_official/")
-            }
-          />
-          <Ionicons
-            name="logo-github"
-            size={48}
-            color={colors.primary}
-            onPress={() => navToLink("https://github.com/AndreaMolinari")}
-          />
-          <Ionicons
-            name="logo-linkedin"
-            size={48}
-            color={colors.primary}
-            onPress={() =>
-              navToLink("https://www.linkedin.com/in/amolinaricom/")
-            }
-          />
+          {Object.entries(social).map((s, i) => {
+            const name = s[0] as keyof Social;
+            const link = s[1];
+            return (
+              <Ionicons
+                key={`key-social-${i}`}
+                name={`logo-${name}`}
+                size={48}
+                color={colors.primary}
+                onPress={() => navToLink(link)}
+              />
+            );
+          })}
         </View>
         <View style={HomeStyle.copy}>
           <Text>&copy; Andrea Molinari {new Date().getFullYear()}</Text>
