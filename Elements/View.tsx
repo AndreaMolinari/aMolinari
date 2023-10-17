@@ -10,7 +10,7 @@ type ViewProps = React.PropsWithChildren<RN.ViewProps> & {
 export const View: React.FC<ViewProps> = (props) => {
   const color = useColor();
 
-  const style = React.useMemo(() => {
+  const style = () => {
     let tmp: RN.StyleProp<RN.ViewStyle> = {
       flexDirection: "row",
       // alignItems: "flex-start",
@@ -40,9 +40,9 @@ export const View: React.FC<ViewProps> = (props) => {
     }
 
     return tmp;
-  }, [props]);
+  };
 
-  return <RN.View style={style}>{props.children}</RN.View>;
+  return <RN.View style={style()}>{props.children}</RN.View>;
 };
 
-export default View;
+export default React.memo(View);
