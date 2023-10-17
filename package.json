@@ -1,6 +1,6 @@
 {
   "name": "amolinari",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "node_modules/expo/AppEntry.js",
   "homepage": "https://andreamolinari.github.io/aMolinari",
   "scripts": {
