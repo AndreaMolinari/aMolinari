@@ -39,10 +39,10 @@ export const Text: React.FC<CustomTextType> = (props) => {
     switch (props.size) {
       case "xxl":
         tmp = RN.StyleSheet.compose(tmp, {
-          fontSize: fontSize(32),
+          fontSize: fontSize(45),
           ...RN.Platform.select({
             web: {
-              fontSize: fontSize(isTabletOrMobile && isPortrait ? 32 : 80),
+              fontSize: fontSize(isTabletOrMobile && isPortrait ? 45 : 80),
             },
           }),
         });

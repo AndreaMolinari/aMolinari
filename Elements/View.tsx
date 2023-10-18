@@ -30,8 +30,11 @@ export const View: React.FC<ViewProps> = (props) => {
       case "disabled":
         tmp = RN.StyleSheet.compose(tmp, { backgroundColor: color.disabled });
         break;
-      default:
+      case "default":
         tmp = RN.StyleSheet.compose(tmp, { backgroundColor: color.default });
+        break;
+      default:
+        // tmp = RN.StyleSheet.compose(tmp, { backgroundColor: 'tranparent' });
         break;
     }
 

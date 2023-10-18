@@ -4,7 +4,7 @@ import React from "react";
 import { Linking, StyleSheet } from "react-native";
 import { Text, View } from "../../Elements";
 import { useColor } from "../../Hooks/Colors";
-import GlobalStyle from "../GlobalStyle";
+import Backdrop from "../../Elements/Backdrop";
 
 type Social = {
   facebook: string;
@@ -16,7 +16,6 @@ type Social = {
 type SocialKeyType = keyof Social;
 
 const HomeView: React.FC = () => {
-  const style = { ...GlobalStyle, ...HomeStyle };
   const social: Social = Constants.expoConfig?.extra?.social;
 
   const navToLink = (link: string) => Linking.openURL(link);
@@ -28,16 +27,16 @@ const HomeView: React.FC = () => {
   ) as SocialKeyType[];
 
   return (
-    <View style={style.wrapper}>
-      <View style={style.main}>
+    <Backdrop>
+      <View style={HomeStyle.main}>
         <Text size="xl">👋 Hey there, I'm</Text>
         <Text size="xxl" weight="bold">
           Andrea Molinari
         </Text>
         <Text size="xl">Full Stack Developer based in Cesena, Italy</Text>
       </View>
-      <View style={style.footer}>
-        <View style={style.social}>
+      <View style={HomeStyle.footer}>
+        <View style={HomeStyle.social}>
           {validKeys.map((name, i) => {
             const link = social[name];
             return (
@@ -51,11 +50,11 @@ const HomeView: React.FC = () => {
             );
           })}
         </View>
-        <View style={style.copy}>
+        <View style={HomeStyle.copy}>
           <Text>&copy; Andrea Molinari {new Date().getFullYear()}</Text>
         </View>
       </View>
-    </View>
+    </Backdrop>
   );
 };
 

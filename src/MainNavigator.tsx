@@ -6,6 +6,7 @@ import HomeView from "./Home/HomeView";
 import ProjectsView from "./Projects/ProjectsView";
 import { RootStackParamList } from "./RootStackParamList";
 import { Text } from "../Elements";
+import Fallback from "./Fallback";
 
 declare global {
   namespace ReactNavigation {
@@ -35,11 +36,12 @@ const MainNavigator: React.FC = () => {
   const initialRouteName = "Home";
 
   return (
-    <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
+    <NavigationContainer linking={linking} fallback={<Fallback />}>
       <MainStack.Navigator initialRouteName={initialRouteName}>
         <MainStack.Group
           screenOptions={{
             headerShown: __DEV__,
+            headerTransparent: true,
             header(props) {
               return <HeaderView {...props} />;
             },
