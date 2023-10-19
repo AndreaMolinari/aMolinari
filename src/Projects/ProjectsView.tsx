@@ -1,6 +1,5 @@
-import Constants from "expo-constants";
 import React from "react";
-import { FlatList, Platform, StyleSheet, View } from "react-native";
+import { FlatList, Platform, ScrollView, StyleSheet, View } from "react-native";
 import { useMediaQuery } from "react-responsive";
 import { Text } from "../../Elements";
 import Backdrop from "../../Elements/Backdrop";
@@ -12,11 +11,14 @@ const ItemSeparator = () => {
 };
 
 const ProjectsView: React.FC = () => {
-  const accessToken: string = Constants.expoConfig?.extra?.github_token;
-  const { repos, reqRepositos } = useGitHub(accessToken);
+  const gh = useGitHub();
 
   React.useEffect(() => {
-    reqRepositos();
+    gh.reqRepositos();
+    // gh.repoLang();
+    // gh.reqActivities();
+    gh.reqLang();
+    gh.reqAny();
   }, []);
 
   const isL = useMediaQuery({ maxWidth: 1600 });
@@ -37,20 +39,32 @@ const ProjectsView: React.FC = () => {
 
   return (
     <Backdrop>
-      <Text size="xl">Bando alle ciance, scoprimo le api di github 😍</Text>
+      {gh.languages && (
+        <Text size="xl">
+          Recent Language Popularity
+          <Text size="xl" weight="bold">
+            {gh.languages.join(", ")}
+          </Text>
+        </Text>
+      )}
+      {/* <ScrollView style={{ flex: 1 }}>
+        <Text>{JSON.stringify(gh.respAny, null, 2)}</Text>
+      </ScrollView> */}
       <FlatList
         numColumns={columns}
         style={Style.container}
         // ItemSeparatorComponent={ItemSeparator}
-        data={repos}
+        data={gh.repos}
         key={`fl-${rand}`}
         renderItem={(item) => <Repo {...item} />}
-        keyExtractor={(item) => `${item.id}`}
+        keyExtractor={(item) => `${item.name}`}
         ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
-        columnWrapperStyle={{
-          justifyContent: "space-between",
-          gap: 20,
-        }}
+        columnWrapperStyle={
+          columns > 1 && {
+            justifyContent: "space-between",
+            gap: 20,
+          }
+        }
       />
     </Backdrop>
   );

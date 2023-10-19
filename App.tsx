@@ -1,9 +1,9 @@
-import React from "react";
-import MainNavigator from "./src/MainNavigator";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
-import { useAssets } from "expo-asset";
+import React from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import Fallback from "./src/Fallback";
+import MainNavigator from "./src/MainNavigator";
+
 
 export const App: React.FC = () => {
   const [fontsLoaded] = useFonts({

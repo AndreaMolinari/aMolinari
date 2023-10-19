@@ -12,7 +12,18 @@ const Repo: React.FC<
   ListRenderItemInfo<{
     name: string;
     description: string;
-    html_url: string;
+    url: string;
+    latestRelease: {
+      name: string;
+    };
+    defaultBranchRef: {
+      name: string;
+      target: {
+        history: {
+          edges: [{ node: any }];
+        };
+      };
+    };
   }>
 > = (props) => {
   const colors = useColor();
@@ -21,7 +32,7 @@ const Repo: React.FC<
 
   return (
     <TouchableHighlight
-      onPress={() => Linking.openURL(props.item.html_url)}
+      onPress={() => Linking.openURL(props.item.url)}
       style={style.wrapper}
       onShowUnderlay={props.separators.highlight}
       onHideUnderlay={props.separators.unhighlight}
@@ -29,6 +40,18 @@ const Repo: React.FC<
       <View style={style.container}>
         <Text>{props.item.name}</Text>
         <Text>{props.item.description}</Text>
+        {props.item.latestRelease?.name && (
+          <Text>{props.item.latestRelease.name}</Text>
+        )}
+        {props.item.defaultBranchRef.target.history.edges.length > 0 && (
+          <>
+            {props.item.defaultBranchRef.target.history.edges
+              .filter((f) => f.node.author.email === "molinari91@gmail.com")
+              .map((i, n) => (
+                <Text key={`commit-${props.item.name}-${n+Math.random()}`}>{i.node.message}</Text>
+              ))}
+          </>
+        )}
       </View>
     </TouchableHighlight>
   );
