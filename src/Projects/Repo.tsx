@@ -6,7 +6,7 @@ import {
   TouchableHighlight,
 } from "react-native";
 import { Text, View } from "../../Elements";
-import { CustomColor, useColor } from "../../Hooks/Colors";
+import { Theme, useTheme } from "@react-navigation/native";
 
 const Repo: React.FC<
   ListRenderItemInfo<{
@@ -26,9 +26,9 @@ const Repo: React.FC<
     };
   }>
 > = (props) => {
-  const colors = useColor();
+  const theme = useTheme();
 
-  const style = Style(colors);
+  const style = Style(theme);
 
   return (
     <TouchableHighlight
@@ -48,7 +48,9 @@ const Repo: React.FC<
             {props.item.defaultBranchRef.target.history.edges
               .filter((f) => f.node.author.email === "molinari91@gmail.com")
               .map((i, n) => (
-                <Text key={`commit-${props.item.name}-${n+Math.random()}`}>{i.node.message}</Text>
+                <Text key={`commit-${props.item.name}-${n + Math.random()}`}>
+                  {i.node.message}
+                </Text>
               ))}
           </>
         )}
@@ -57,7 +59,7 @@ const Repo: React.FC<
   );
 };
 
-const Style = (colors: CustomColor) =>
+const Style = (colors: Theme) =>
   StyleSheet.create({
     wrapper: {
       flex: 1,
@@ -65,9 +67,9 @@ const Style = (colors: CustomColor) =>
     container: {
       flex: 1,
       flexDirection: "column",
-      backgroundColor: colors.default,
+      backgroundColor: colors.colors.background,
       opacity: 0.95,
-      borderColor: colors.disabled,
+      borderColor: colors.colors.border,
       borderWidth: 1,
       borderRadius: 10,
       padding: 10,

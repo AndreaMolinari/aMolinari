@@ -1,21 +1,16 @@
+import { useTheme } from "@react-navigation/native";
 import React from "react";
 import * as RN from "react-native";
-import { AvailableColors, useColor } from "../Hooks/Colors";
 
 type ViewProps = React.PropsWithChildren<RN.ViewProps> & {
-  color?: AvailableColors | undefined;
   centerContent?: true;
 };
 
 export const View: React.FC<ViewProps> = (props) => {
-  const color = useColor();
+  const { colors } = useTheme();
 
-  const style = () => {
-    let tmp: RN.StyleProp<RN.ViewStyle> = {
-      flexDirection: "row",
-      // alignItems: "flex-start",
-      // justifyContent: "space-around",
-    };
+  const style = React.useMemo(() => {
+    let tmp: RN.StyleProp<RN.ViewStyle> = props.style;
 
     if (props.centerContent) {
       tmp = RN.StyleSheet.compose(tmp, {
@@ -26,26 +21,18 @@ export const View: React.FC<ViewProps> = (props) => {
       });
     }
 
-    switch (props.color) {
-      case "disabled":
-        tmp = RN.StyleSheet.compose(tmp, { backgroundColor: color.disabled });
-        break;
-      case "default":
-        tmp = RN.StyleSheet.compose(tmp, { backgroundColor: color.default });
-        break;
-      default:
-        // tmp = RN.StyleSheet.compose(tmp, { backgroundColor: 'tranparent' });
-        break;
-    }
-
     if (props.style) {
       tmp = RN.StyleSheet.compose(tmp, props.style);
     }
 
     return tmp;
-  };
+  }, [props, colors]);
 
-  return <RN.View style={style()}>{props.children}</RN.View>;
+  return (
+    <RN.View {...props} style={style}>
+      {props.children}
+    </RN.View>
+  );
 };
 
 export default React.memo(View);

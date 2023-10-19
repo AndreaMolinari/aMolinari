@@ -1,11 +1,18 @@
 import React from "react";
-import * as Expo from "expo-status-bar";
-import { useIsDark } from "../Hooks/Colors";
+import { StatusBar as ExpoStatusBar, StatusBarProps } from "expo-status-bar";
+import { useTheme } from "@react-navigation/native";
 
-export const StatusBar: React.FC = () => {
-  const isDark = useIsDark();
+export const StatusBar: React.FC<StatusBarProps> = (p) => {
+  const { dark } = useTheme();
 
-  return <Expo.StatusBar style={!isDark ? "dark" : "light"} />;
+  const props: () => StatusBarProps = () => {
+    return {
+      ...p,
+      style: dark ? "light" : "dark",
+    };
+  };
+
+  return <ExpoStatusBar {...props} />;
 };
 
-export default StatusBar;
+export default React.memo(StatusBar);

@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView } from "react-native";
+import { Platform, SafeAreaView } from "react-native";
 import { Text, View, StatusBar } from "../../Elements";
 import MaintenanceInfo from "./MaintenanceInfo";
 

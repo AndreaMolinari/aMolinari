@@ -1,13 +1,12 @@
 import React from "react";
-import { FlatList, Platform, ScrollView, StyleSheet, View } from "react-native";
+import { FlatList, Platform, StyleSheet, View } from "react-native";
 import { useMediaQuery } from "react-responsive";
-import { Text } from "../../Elements";
-import Backdrop from "../../Elements/Backdrop";
+import { Text, Backdrop } from "../../Elements";
 import useGitHub from "../Hooks/useGitHub";
 import Repo from "./Repo";
 
 const ItemSeparator = () => {
-  return <View style={{ height: 10 }} />;
+  return <View style={{ height: 20 }} />;
 };
 
 const ProjectsView: React.FC = () => {
@@ -39,40 +38,42 @@ const ProjectsView: React.FC = () => {
 
   return (
     <Backdrop>
-      {gh.languages && (
-        <Text size="xl">
-          Recent Language Popularity
-          <Text size="xl" weight="bold">
-            {gh.languages.join(", ")}
+      <View style={Style.container}>
+        {gh.languages && (
+          <Text size="xl">
+            Recent Language Popularity
+            <Text size="xl" weight="bold">
+              {` ${gh.languages.join(", ")}`}
+            </Text>
           </Text>
-        </Text>
-      )}
-      {/* <ScrollView style={{ flex: 1 }}>
+        )}
+        {/* <ScrollView style={{ flex: 1 }}>
         <Text>{JSON.stringify(gh.respAny, null, 2)}</Text>
       </ScrollView> */}
-      <FlatList
-        numColumns={columns}
-        style={Style.container}
-        // ItemSeparatorComponent={ItemSeparator}
-        data={gh.repos}
-        key={`fl-${rand}`}
-        renderItem={(item) => <Repo {...item} />}
-        keyExtractor={(item) => `${item.name}`}
-        ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
-        columnWrapperStyle={
-          columns > 1 && {
-            justifyContent: "space-between",
-            gap: 20,
+        <FlatList
+          numColumns={columns}
+          style={Style.container}
+          // ItemSeparatorComponent={ItemSeparator}
+          data={gh.repos}
+          key={`fl-${rand}`}
+          renderItem={(item) => <Repo {...item} />}
+          keyExtractor={(item) => `${item.name}`}
+          ItemSeparatorComponent={ItemSeparator}
+          columnWrapperStyle={
+            columns > 1 && {
+              justifyContent: "space-between",
+              gap: 20,
+            }
           }
-        }
-      />
+        />
+      </View>
     </Backdrop>
   );
 };
 
 const Style = StyleSheet.create({
   container: {
-    gap: 10,
+    gap: 20,
   },
 });
 

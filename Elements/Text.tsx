@@ -1,37 +1,46 @@
+import { useTheme } from "@react-navigation/native";
 import React from "react";
 import * as RN from "react-native";
 import { useMediaQuery } from "react-responsive";
-import { useColor } from "../Hooks/Colors";
 
 type CustomTextType = React.PropsWithChildren<RN.TextProps> & {
   size?: "xxl" | "xl" | "l" | "m" | undefined;
-  weight?: "bold" | "regular" | undefined;
+  weight?: "extra-bold" | "bold" | "regular" | "light" | undefined;
 };
 
 const fontSize = (size: number) => size * RN.PixelRatio.getFontScale();
 
 export const Text: React.FC<CustomTextType> = (props) => {
-  const color = useColor();
+  const { colors } = useTheme();
 
   const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
   const isPortrait = useMediaQuery({ orientation: "portrait" });
 
   const style = () => {
     let tmp: RN.StyleProp<RN.TextStyle> = {
-      color: color.primary,
-      fontFamily: "Nunito",
-      fontWeight: "500",
+      color: colors.text,
+      fontFamily: "Nunito-500",
     };
 
     switch (props.weight) {
+      case "extra-bold":
+        tmp = RN.StyleSheet.compose(tmp, {
+          fontFamily: "Nunito-900",
+        });
+        break;
       case "bold":
         tmp = RN.StyleSheet.compose(tmp, {
-          fontWeight: "700",
+          fontFamily: "Nunito-800",
+        });
+        break;
+      case "light":
+        tmp = RN.StyleSheet.compose(tmp, {
+          fontFamily: "Nunito-200",
         });
         break;
       default:
         tmp = RN.StyleSheet.compose(tmp, {
-          fontWeight: "500",
+          fontFamily: "Nunito-500",
         });
         break;
     }

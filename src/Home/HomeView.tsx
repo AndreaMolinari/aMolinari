@@ -2,9 +2,9 @@ import { Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import React from "react";
 import { Linking, StyleSheet } from "react-native";
-import { Text, View } from "../../Elements";
+import { Text, View, Backdrop } from "../../Elements";
 import { useColor } from "../../Hooks/Colors";
-import Backdrop from "../../Elements/Backdrop";
+import { useTheme } from "@react-navigation/native";
 
 type Social = {
   facebook: string;
@@ -20,7 +20,7 @@ const HomeView: React.FC = () => {
 
   const navToLink = (link: string) => Linking.openURL(link);
 
-  const colors = useColor();
+  const { colors } = useTheme();
 
   const validKeys = Object.keys(social).filter(
     (key) => key in social
@@ -30,7 +30,7 @@ const HomeView: React.FC = () => {
     <Backdrop>
       <View style={HomeStyle.main}>
         <Text size="xl">👋 Hey there, I'm</Text>
-        <Text size="xxl" weight="bold">
+        <Text size="xxl" weight="extra-bold">
           Andrea Molinari
         </Text>
         <Text size="xl">Full Stack Developer based in Cesena, Italy</Text>
@@ -44,7 +44,7 @@ const HomeView: React.FC = () => {
                 key={`key-social-${i}`}
                 name={`logo-${name}`}
                 size={48}
-                color={colors.primary}
+                color={colors.text}
                 onPress={() => navToLink(link)}
               />
             );
@@ -72,10 +72,12 @@ const HomeStyle = StyleSheet.create({
     rowGap: 20,
   },
   social: {
+    flexDirection: "row",
     justifyContent: "center",
     columnGap: 20,
   },
   copy: {
+    flexDirection: "row",
     justifyContent: "center",
   },
 });
