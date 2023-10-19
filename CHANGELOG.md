@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/AndreaMolinari/aMolinari/compare/v0.0.3...v0.0.4) (2023-10-19)
+
+
+### Features
+
+* :sparkles: assets light and dark + font device ([6c89e41](https://github.com/AndreaMolinari/aMolinari/commit/6c89e41b132251938972b809a9e2645fd512b016))
+* :sparkles: graphql regna ([cec7374](https://github.com/AndreaMolinari/aMolinari/commit/cec737498deb60be6df20b1384734bbfcf4d44d5))
+* :sparkles: lista delle repo + flatlist sistemata ([7c0ab82](https://github.com/AndreaMolinari/aMolinari/commit/7c0ab8222de9638cb6e0f4d14fb432ffff3d8e46))
+
 ### [0.0.3](https://github.com/AndreaMolinari/aMolinari/compare/v0.0.2...v0.0.3) (2023-10-17)
 
 
