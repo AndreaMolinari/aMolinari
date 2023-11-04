@@ -1,16 +1,12 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import Text from "../Elements/Text";
-import { useIsDark } from "../Hooks/Colors";
-import View from "../Elements/View";
 import { Platform, SafeAreaView } from "react-native";
-import HomeInfo from "./HomeInfo";
+import { Text, View, StatusBar } from "../../Elements";
+import MaintenanceInfo from "./MaintenanceInfo";
 
-const HomeView: React.FC = () => {
-  const isDark = useIsDark();
+const MaintenanceView: React.FC = () => {
   return (
     <>
-      <StatusBar style={isDark ? "dark" : "light"} />
+      <StatusBar />
       <View
         style={{
           flex: 1,
@@ -19,7 +15,7 @@ const HomeView: React.FC = () => {
       >
         <SafeAreaView style={{ flex: 1 }}>
           <View centerContent>
-            <HomeInfo />
+            <MaintenanceInfo />
           </View>
           <View style={{ flexDirection: "column", flex: 1 }}>
             <View centerContent>
@@ -32,4 +28,4 @@ const HomeView: React.FC = () => {
   );
 };
 
-export default React.memo(HomeView);
+export default React.memo(MaintenanceView);

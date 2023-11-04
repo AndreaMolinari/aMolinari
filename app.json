@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -25,6 +25,14 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "social": {
+        "facebook": "https://www.facebook.com/AndreaJrMolinari/",
+        "instagram": "https://www.instagram.com/imatto_official/",
+        "github": "https://github.com/AndreaMolinari",
+        "linkedin": "https://www.linkedin.com/in/amolinaricom/"
+      }
     }
   }
 }

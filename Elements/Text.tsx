@@ -1,49 +1,91 @@
+import { useTheme } from "@react-navigation/native";
 import React from "react";
-import {
-  Platform,
-  StyleProp,
-  StyleSheet,
-  Text,
-  TextProps,
-  TextStyle,
-} from "react-native";
-import { useColor } from "../Hooks/Colors";
+import * as RN from "react-native";
+import { useMediaQuery } from "react-responsive";
 
-type CustomTextType = React.PropsWithChildren<TextProps> & {
-  size?: "xxl" | undefined;
+type CustomTextType = React.PropsWithChildren<RN.TextProps> & {
+  size?: "xxl" | "xl" | "l" | "m" | undefined;
+  weight?: "extra-bold" | "bold" | "regular" | "light" | undefined;
 };
 
-export default (props: CustomTextType) => {
-  const color = useColor();
+const fontSize = (size: number) => size * RN.PixelRatio.getFontScale();
 
-  const style = React.useMemo(() => {
-    let tmp: StyleProp<TextStyle> = {
-      color: color.primary,
-      marginVertical: 10,
+export const Text: React.FC<CustomTextType> = (props) => {
+  const { colors } = useTheme();
+
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
+  const isPortrait = useMediaQuery({ orientation: "portrait" });
+
+  const style = () => {
+    let tmp: RN.StyleProp<RN.TextStyle> = {
+      color: colors.text,
+      fontFamily: "Nunito-500",
     };
+
+    switch (props.weight) {
+      case "extra-bold":
+        tmp = RN.StyleSheet.compose(tmp, {
+          fontFamily: "Nunito-900",
+        });
+        break;
+      case "bold":
+        tmp = RN.StyleSheet.compose(tmp, {
+          fontFamily: "Nunito-800",
+        });
+        break;
+      case "light":
+        tmp = RN.StyleSheet.compose(tmp, {
+          fontFamily: "Nunito-200",
+        });
+        break;
+      default:
+        tmp = RN.StyleSheet.compose(tmp, {
+          fontFamily: "Nunito-500",
+        });
+        break;
+    }
 
     switch (props.size) {
       case "xxl":
-        tmp = StyleSheet.compose(tmp, {
-          fontSize: 32,
-          ...Platform.select({
+        tmp = RN.StyleSheet.compose(tmp, {
+          fontSize: fontSize(45),
+          ...RN.Platform.select({
             web: {
-              fontSize: 50,
+              fontSize: fontSize(isTabletOrMobile && isPortrait ? 45 : 80),
             },
           }),
         });
         break;
+      case "xl":
+        tmp = RN.StyleSheet.compose(tmp, {
+          fontSize: fontSize(28),
+        });
+        break;
+      case "l":
+        tmp = RN.StyleSheet.compose(tmp, {
+          fontSize: fontSize(25),
+        });
+        break;
+      case "m":
+        tmp = RN.StyleSheet.compose(tmp, {
+          fontSize: fontSize(20),
+        });
+        break;
       default:
-        tmp = StyleSheet.compose(tmp, { fontSize: 14 });
+        tmp = RN.StyleSheet.compose(tmp, {
+          fontSize: fontSize(14),
+        });
         break;
     }
 
     if (props.style) {
-      tmp = StyleSheet.compose(tmp, props.style);
+      tmp = RN.StyleSheet.compose(tmp, props.style);
     }
 
     return tmp;
-  }, [props]);
+  };
 
-  return <Text style={style}>{props.children}</Text>;
+  return <RN.Text style={style()} {...props} />;
 };
+
+export default React.memo(Text);
