@@ -45,6 +45,28 @@ export const View: React.FC<ViewProps> = (props) => {
       tmp = RN.StyleSheet.compose(tmp, props.style);
     }
 
+    if (props.centerContent) {
+      tmp = StyleSheet.compose(tmp, {
+        flex: 1,
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      });
+    }
+
+    switch (props.color) {
+      case "disabled":
+        tmp = StyleSheet.compose(tmp, { backgroundColor: color.disabled });
+        break;
+      default:
+        tmp = StyleSheet.compose(tmp, { backgroundColor: color.default });
+        break;
+    }
+
+    if (props.style) {
+      tmp = StyleSheet.compose(tmp, props.style);
+    }
+
     return tmp;
   }, [props, colors]);
 
